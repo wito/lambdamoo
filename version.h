@@ -25,6 +25,7 @@
  * Server Executable Version
  */
 
+extern const char *FUP_version;
 extern const char *server_version;
 extern Var server_version_full(Var);
 

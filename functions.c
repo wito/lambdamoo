@@ -46,6 +46,7 @@ static registry bi_function_registries[] =
     register_disassemble,
     register_extensions,
     register_execute,
+    register_files,
     register_functions,
     register_list,
     register_log,

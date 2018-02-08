@@ -18,6 +18,7 @@
 extern void register_disassemble(void);
 extern void register_extensions(void);
 extern void register_execute(void);
+extern void register_files(void);
 extern void register_functions(void);
 extern void register_list(void);
 extern void register_log(void);

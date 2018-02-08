@@ -68,6 +68,7 @@
 #  define VERSION_SOURCE(DEF) DEF(vcs,"unknown")
 #endif
 
+const char *FUP_version = "1.9";
 const char *server_version = VERSION_STRING;
 
 static Var *version_structure = 0;
