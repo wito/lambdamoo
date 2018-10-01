@@ -624,6 +624,29 @@ bf_ctime(Var arglist, Byte next, void *vdata, Objid progr)
     return make_var_pack(r);
 }
 
+static package
+bf_strftime(Var arglist, Byte next, void *vdata, Objid progr)
+{
+    Var r;
+    time_t c;
+    const char *fmt = arglist.v.list[1].v.str;
+    char tbuffer[100];
+
+    if (arglist.v.list[0].v.num == 2) {
+      c = arglist.v.list[2].v.num;
+    } else {
+      c = time(0);
+    }
+
+    strftime(tbuffer, 100, fmt, localtime(&c));
+
+    r.type = TYPE_STR;
+    r.v.str = str_dup(tbuffer);
+
+    free_var(arglist);
+    return make_var_pack(r);
+}
+
 /* For now:  Uncoment on unicode64 branch */
 /* #define INTNUM_AND_OBJID_ARE_64_BITS */
 
@@ -772,13 +795,13 @@ bf_random(Var arglist, Byte next, void *vdata, Objid progr)
     Var r;
     int e;
     int rnd;
-    const int range_l =
-	((INTNUM_MAX > RAND_MAX ? RAND_MAX : (RAND_MAX - num)) + 1) % num;
 
     free_var(arglist);
 
     if (num <= 0)
-	return make_error_pack(E_INVARG);
+      return make_error_pack(E_INVARG);
+
+    const int range_l =	((INTNUM_MAX > RAND_MAX ? RAND_MAX : (RAND_MAX - num)) + 1) % num;
 
     r.type = TYPE_INT;
 
@@ -884,6 +907,7 @@ register_numbers(void)
     register_function("random", 0, 1, bf_random, TYPE_INT);
     register_function("time", 0, 0, bf_time);
     register_function("ctime", 0, 1, bf_ctime, TYPE_INT);
+    register_function("strftime", 1, 2, bf_strftime, TYPE_STR, TYPE_INT);
     register_function("floatstr", 2, 3, bf_floatstr,
 		      TYPE_FLOAT, TYPE_INT, TYPE_ANY);
 
