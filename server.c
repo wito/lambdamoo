@@ -185,6 +185,7 @@ abort_server(void)
     signal(SIGILL, SIG_DFL);
     signal(SIGQUIT, SIG_DFL);
     signal(SIGSEGV, SIG_DFL);
+    signal(SIGPIPE, SIG_DFL);
 #ifdef SIGBUS
     signal(SIGBUS, SIG_DFL);
 #endif
@@ -313,6 +314,7 @@ setup_signals(void)
     signal(SIGILL, panic_signal);
     signal(SIGQUIT, panic_signal);
     signal(SIGSEGV, panic_signal);
+    signal(SIGPIPE, SIG_IGN);
 #ifdef SIGBUS
     signal(SIGBUS, panic_signal);
 #endif
