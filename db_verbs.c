@@ -60,6 +60,13 @@ static const char *prep_list[] =
     "is",
     "as",
     "off/off of",
+    "against",
+    "without/excluding",
+    "along",
+    "across",
+    "around",
+    "above",
+    "below",
 };
 
 #define NPREPS Arraysize(prep_list)
