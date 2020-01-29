@@ -17,7 +17,7 @@ CC = @CC@
 LIBRARIES = @LIBS@
 YACC = @YACC@
 
-CFLAGS = -O
+CFLAGS = -Ofast -finline-functions
 # If you're using GCC, you may prefer:
 # CFLAGS = -O2 -finline-functions
 #
