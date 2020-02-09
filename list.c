@@ -1205,6 +1205,25 @@ bf_encode_binary(Var arglist, Byte next, void *vdata, Objid progr)
     return p;
 }
 
+static package
+bf_char(Var arglist, Byte next, void *vdata, Objid progr) {
+  int i = arglist.v.list[1].v.num;
+  free_var(arglist);
+
+  if ((i < 0x00) || (i >= 0xFF)) {
+    return make_error_pack(E_INVARG);
+  }
+
+  unsigned char str[2] = { (unsigned char)i, 0 };
+
+  Var r;
+
+  r.type = TYPE_STR;
+  r.v.str = str_dup(str);
+
+  return make_var_pack(r);
+}
+
 void
 register_list(void)
 {
@@ -1242,6 +1261,8 @@ register_list(void)
     register_function("strcmp", 2, 2, bf_strcmp, TYPE_STR, TYPE_STR);
     register_function("strsub", 3, 4, bf_strsub,
 		      TYPE_STR, TYPE_STR, TYPE_STR, TYPE_ANY);
+
+    register_function("char", 1, 1, bf_char, TYPE_INT);
 }
 
 
